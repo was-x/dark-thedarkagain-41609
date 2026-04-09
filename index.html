@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzamil Majeed | Automotive Sales & Marketing Professional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-color: #FFB800;
+            --secondary-text: #a1a1a1;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-family: 'Albert Sans', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-blur: 0px;
+            --bg-brightness: 1;
+            --bg-overlay-opacity: 0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* BACKGROUND */
+        .full-page-bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden; }
+        .full-page-bg img { width:100%; height:100%; object-fit:cover; filter:blur(var(--bg-blur,0px)) brightness(var(--bg-brightness,1)) saturate(1.2); transition:filter 0.15s ease-out; }
+        .background-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,var(--bg-overlay-opacity,0)); pointer-events:none; z-index:-1; transition:background 0.15s ease-out; }
+
+        /* SCROLL PROGRESS */
+        .scroll-progress { position:fixed; top:0; left:0; width:0%; height:3px; background:linear-gradient(90deg,#ff6b35,#FFB800,#ffd700); z-index:9999; }
+
+        /* CURSOR GLOW */
+        .cursor-glow { pointer-events:none; position:fixed; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle,rgba(255,184,0,0.06) 0%,transparent 70%); transform:translate(-50%,-50%); z-index:0; transition:left 0.15s ease-out,top 0.15s ease-out; }
+
+        /* LAYOUT */
+        .container { max-width:1200px; margin:0 auto; padding:0 40px; }
+
+        /* HEADER */
+        .header { display:flex; justify-content:space-between; align-items:center; padding:28px 40px; max-width:1200px; margin:0 auto; position:relative; z-index:10; }
+        .status { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; }
+        .status-dot { width:8px; height:8px; background-color:#4CAF50; border-radius:50%; box-shadow:0 0 10px #4CAF50; animation:pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.5);opacity:0.5;} }
+        .download-cv { background-color:var(--accent-color); color:#000; padding:10px 24px; border-radius:30px; text-decoration:none; font-weight:600; font-size:14px; transition:var(--transition); cursor:pointer; display:inline-block; }
+        .download-cv:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(255,184,0,0.35); }
+
+        /* HERO — DESKTOP */
+        .hero { display:flex; flex-direction:row; justify-content:space-between; align-items:center; min-height:80vh; padding-top:20px; opacity:0; transform:translateY(30px); animation:fadeInUp 1s forwards; gap:60px; }
+        .hero-content { flex:1; }
+        .subtitle { color:var(--accent-color); font-size:16px; font-weight:700; letter-spacing:2px; margin-bottom:16px; text-shadow:0 0 20px rgba(255,184,0,0.4); }
+        .title { font-size:72px; font-weight:700; line-height:1.1; margin-bottom:40px; letter-spacing:-2px; text-shadow:0 4px 20px rgba(0,0,0,0.5); }
+
+        .contact-info { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; max-width:560px; }
+        .contact-item { display:flex; align-items:center; gap:10px; color:var(--secondary-text); font-size:14px; transition:var(--transition); min-width:0; }
+        .contact-item:hover { color:#fff; transform:translateX(4px); }
+        .contact-item .ico { width:18px; height:18px; flex-shrink:0; fill:none; stroke:var(--accent-color); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+        .contact-item a { color:var(--secondary-text); text-decoration:none; transition:var(--transition); word-break:break-all; }
+        .contact-item a:hover { color:var(--accent-color); }
+
+        /* PROFILE */
+        .profile-picture-container { flex:1; display:flex; align-items:center; justify-content:center; position:relative; height:460px; transform-style:preserve-3d; transition:transform 0.12s ease-out; }
+        .profile-glow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:420px; height:420px; background:radial-gradient(circle,rgba(255,107,53,0.3) 0%,rgba(255,215,0,0.1) 30%,transparent 70%); border-radius:50%; filter:blur(40px); animation:glow-pulse 4s ease-in-out infinite; z-index:1; }
+        @keyframes glow-pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.8;} 50%{transform:translate(-50%,-50%) scale(1.12);opacity:1;} }
+        .profile-border { position:relative; width:300px; height:300px; border-radius:50%; padding:8px; background:linear-gradient(135deg,#ff6b35,#ffd700,#ff6b35); background-size:300% 300%; animation:gradient-shift 6s ease infinite; z-index:3; box-shadow:0 0 40px rgba(255,107,53,0.6),0 0 80px rgba(255,215,0,0.3); }
+        @keyframes gradient-shift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+        .profile-image { width:100%; height:100%; border-radius:50%; object-fit:cover; display:block; }
+        .floating-orbs { position:absolute; width:100%; height:100%; z-index:2; pointer-events:none; }
+        .orb { position:absolute; border-radius:50%; background:radial-gradient(circle at 30% 30%,rgba(255,215,0,0.8),rgba(255,107,53,0.4)); box-shadow:0 0 20px rgba(255,215,0,0.6); filter:blur(0.5px); }
+        .orb-1{width:80px;height:80px;top:-20px;right:-20px;animation:fo1 6s ease-in-out infinite;opacity:.7;}
+        .orb-2{width:50px;height:50px;bottom:20px;left:-30px;animation:fo2 7s ease-in-out infinite;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,.8),rgba(255,215,0,.4));opacity:.6;}
+        .orb-3{width:60px;height:60px;bottom:-30px;right:10px;animation:fo3 8s ease-in-out infinite;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,.7),rgba(255,215,0,.3));opacity:.5;}
+        @keyframes fo1{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(15px,-15px) scale(1.1);}50%{transform:translate(0,20px) scale(.95);}75%{transform:translate(-15px,-10px) scale(1.05);}}
+        @keyframes fo2{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(10px,15px) scale(1.15);}66%{transform:translate(-15px,-10px) scale(.9);}}
+        @keyframes fo3{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(-10px,-15px) scale(1.1);}50%{transform:translate(15px,10px) scale(.95);}75%{transform:translate(-10px,15px) scale(1.08);}}
+
+        /* SECTIONS */
+        .section { padding:90px 0; opacity:0; transform:translateY(40px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .section.reveal { opacity:1; transform:translateY(0); }
+        .section.reveal .sc { animation:scIn 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+        .section.reveal .sc:nth-child(1){animation-delay:.05s;} .section.reveal .sc:nth-child(2){animation-delay:.12s;} .section.reveal .sc:nth-child(3){animation-delay:.19s;} .section.reveal .sc:nth-child(4){animation-delay:.26s;}
+        @keyframes scIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+        .section-title { font-size:30px; font-weight:700; margin-bottom:36px; letter-spacing:-1px; position:relative; display:inline-block; }
+        .section-title::after { content:''; position:absolute; bottom:-8px; left:0; width:0; height:2px; background:var(--accent-color); transition:width 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s; }
+        .section.reveal .section-title::after { width:100%; }
+
+        /* SUMMARY */
+        .summary-text p { font-size:17px; color:var(--secondary-text); margin-bottom:22px; max-width:800px; line-height:1.8; }
+        .summary-text p strong { color:var(--accent-color); }
+
+        /* STATS */
+        .stats-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-color); border:1px solid var(--border-color); border-radius:20px; overflow:hidden; margin-top:50px; }
+        .stat-item { background:var(--card-bg); padding:28px 20px; text-align:center; transition:background 0.3s; }
+        .stat-item:hover { background:rgba(255,255,255,0.08); }
+        .stat-num { font-size:42px; font-weight:700; color:var(--accent-color); line-height:1; letter-spacing:-2px; }
+        .stat-label { font-size:12px; color:var(--secondary-text); margin-top:8px; }
+
+        /* EXPERIENCE */
+        .experience-item { margin-bottom:56px; border-left:1px solid var(--border-color); padding-left:36px; position:relative; transition:border-color 0.3s; }
+        .experience-item:hover { border-color:rgba(255,184,0,0.4); }
+        .experience-item::before { content:''; position:absolute; left:-5px; top:0; width:10px; height:10px; background-color:var(--accent-color); border-radius:50%; transition:transform 0.3s,box-shadow 0.3s; }
+        .experience-item:hover::before { transform:scale(1.4); box-shadow:0 0 12px rgba(255,184,0,0.6); }
+        .exp-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; flex-wrap:wrap; gap:8px; }
+        .exp-header h3 { font-size:19px; }
+        .exp-date { color:var(--secondary-text); font-size:12px; background:rgba(255,255,255,0.06); padding:4px 12px; border-radius:20px; border:1px solid var(--border-color); white-space:nowrap; }
+        .exp-company { color:var(--accent-color); font-weight:600; margin-bottom:14px; font-size:14px; }
+        .exp-desc { color:var(--secondary-text); margin-bottom:16px; line-height:1.7; font-size:14px; }
+        .exp-list { list-style:none; color:var(--secondary-text); }
+        .exp-list li { margin-bottom:8px; position:relative; padding-left:20px; font-size:14px; }
+        .exp-list li::before { content:'—'; position:absolute; left:0; color:var(--accent-color); }
+
+        /* PROJECTS */
+        .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+        .project-card { position:relative; border-radius:18px; overflow:hidden; aspect-ratio:16/10; cursor:pointer; background:#111; box-shadow:0 0 0 1px var(--border-color); transition:box-shadow 0.3s,transform 0.3s; }
+        .project-card:hover { box-shadow:0 0 0 1px rgba(255,184,0,0.4),0 20px 40px rgba(0,0,0,0.4); transform:translateY(-4px); }
+        .project-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .project-card:hover img { transform:scale(1.08); }
+        .project-info { position:absolute; bottom:0; left:0; width:100%; padding:24px; background:linear-gradient(transparent,rgba(0,0,0,0.92)); transform:translateY(16px); opacity:0; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .project-card:hover .project-info { transform:translateY(0); opacity:1; }
+        .project-info h4 { color:var(--accent-color); margin-bottom:6px; font-size:1rem; }
+        .project-info p { font-size:0.82rem; color:#ddd; }
+        .project-tag { display:inline-block; background:rgba(255,184,0,0.15); border:1px solid rgba(255,184,0,0.3); color:var(--accent-color); font-size:10px; font-weight:600; letter-spacing:1px; padding:3px 10px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; }
+
+        /* SKILLS */
+        .skills-tags { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:44px; }
+        .skills-tags span { background-color:var(--card-bg); border:1px solid var(--border-color); padding:9px 16px; border-radius:30px; font-size:13px; transition:all 0.25s cubic-bezier(0.4,0,0.2,1); cursor:default; color:var(--secondary-text); }
+        .skills-tags span:hover { background-color:var(--accent-color); color:#000; border-color:var(--accent-color); transform:translateY(-2px); }
+
+        .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:14px; }
+        .tool-item { background-color:var(--card-bg); border:1px solid var(--border-color); padding:18px 12px; border-radius:16px; display:flex; flex-direction:column; align-items:center; gap:10px; transition:all 0.3s cubic-bezier(0.16,1,0.3,1); cursor:default; text-align:center; }
+        .tool-item img { width:42px; height:42px; object-fit:contain; }
+        .tool-item span { font-size:12px; font-weight:500; color:var(--secondary-text); }
+        .tool-item:hover { background-color:rgba(255,255,255,0.1); border-color:rgba(255,184,0,0.3); transform:translateY(-5px); }
+        .tool-item:hover span { color:#fff; }
+
+        .cert-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,184,0,0.08); border:1px solid rgba(255,184,0,0.25); color:#e0b040; padding:10px 16px; border-radius:30px; font-size:13px; font-weight:500; transition:all 0.25s; margin:5px; }
+        .cert-badge::before { content:'✦'; color:var(--accent-color); font-size:10px; }
+        .cert-badge:hover { background:rgba(255,184,0,0.18); transform:translateY(-2px); }
+
+        /* EDUCATION / LANGUAGES */
+        .side-by-side { display:grid; grid-template-columns:2fr 1fr; gap:70px; }
+        .edu-item { margin-bottom:24px; padding:18px; border-radius:14px; border:1px solid var(--border-color); background:var(--card-bg); transition:all 0.3s; }
+        .edu-item:hover { border-color:rgba(255,184,0,0.3); transform:translateX(6px); }
+        .edu-school { font-weight:700; font-size:16px; margin-bottom:6px; }
+        .edu-degree { color:var(--secondary-text); font-size:13px; line-height:1.6; }
+        .lang-item { display:flex; align-items:center; justify-content:space-between; font-size:15px; margin-bottom:14px; padding:12px 16px; border-radius:12px; border:1px solid var(--border-color); background:var(--card-bg); transition:all 0.3s; }
+        .lang-item:hover { border-color:rgba(255,184,0,0.3); transform:translateX(4px); }
+        .lang-level { font-size:10px; font-weight:600; letter-spacing:1px; color:var(--accent-color); background:rgba(255,184,0,0.1); padding:3px 10px; border-radius:20px; }
+
+        /* FOOTER */
+        .footer { padding:80px 0 130px; text-align:center; border-top:1px solid var(--border-color); }
+        .footer-links { display:flex; justify-content:center; gap:16px; margin-bottom:36px; flex-wrap:wrap; }
+        .footer-links a { color:var(--secondary-text); transition:all 0.3s; display:inline-flex; width:46px; height:46px; align-items:center; justify-content:center; border-radius:50%; border:1px solid var(--border-color); background:var(--card-bg); }
+        .footer-links a:hover { color:var(--accent-color); border-color:rgba(255,184,0,0.4); transform:translateY(-4px); }
+        .footer-links a svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+        .copyright { color:var(--secondary-text); font-size:13px; }
+
+        /* FLOATING NAV */
+        .floating-nav { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:rgba(15,15,15,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid var(--border-color); padding:6px; border-radius:40px; z-index:1000; box-shadow:0 8px 32px rgba(0,0,0,0.4); }
+        .floating-nav ul { display:flex; list-style:none; gap:2px; }
+        .floating-nav a { display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:30px; text-decoration:none; color:var(--secondary-text); font-size:13px; font-weight:500; transition:all 0.25s cubic-bezier(0.4,0,0.2,1); }
+        .floating-nav a svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+        .floating-nav a span { display:none; }
+        .floating-nav a.active { background-color:#fff; color:#000; }
+        .floating-nav a.active svg { stroke:#000; }
+        .floating-nav a:hover:not(.active) { background:rgba(255,255,255,0.08); color:#fff; }
+
+        @keyframes fadeInUp { to { opacity:1; transform:translateY(0); } }
+
+        /* ===================================================
+           MOBILE — max-width: 768px
+        =================================================== */
+        @media (max-width: 768px) {
+            .container { padding: 0 18px; }
+            .header { padding: 18px; }
+
+            /* Hero: column, centered, profile FIRST then content */
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                min-height: auto;
+                padding: 10px 0 40px;
+                gap: 24px;
+            }
+            .hero-content { order: 2; width: 100%; }
+            .profile-picture-container {
+                order: 1;
+                height: 250px;
+                width: 250px;
+                flex: none;
+            }
+            .profile-border { width: 200px; height: 200px; }
+            .profile-glow { width: 260px; height: 260px; }
+            .orb-1 { width:44px; height:44px; top:-10px; right:-8px; }
+            .orb-2 { width:30px; height:30px; bottom:10px; left:-10px; }
+            .orb-3 { width:36px; height:36px; bottom:-12px; right:0; }
+
+            .subtitle { font-size: 11px; letter-spacing: 1.2px; margin-bottom: 10px; }
+            .title { font-size: 40px; letter-spacing: -1px; margin-bottom: 22px; }
+
+            /* Contact: single column, centered */
+            .contact-info {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                gap: 12px;
+                margin: 0 auto;
+            }
+            .contact-item { justify-content: center; }
+            .contact-item:hover { transform: none; }
+            .contact-item a { word-break: break-word; }
+
+            .section { padding: 56px 0; }
+            .section-title { font-size: 24px; margin-bottom: 26px; }
+
+            /* Summary */
+            .summary-text p { font-size: 15px; }
+            .stats-strip { border-radius: 16px; margin-top: 32px; }
+            .stat-num { font-size: 32px; }
+
+            /* Experience */
+            .experience-item { padding-left: 22px; margin-bottom: 36px; }
+            .exp-header { flex-direction: column; align-items: flex-start; }
+
+            /* Projects: 1 column, always show info */
+            .projects-grid { grid-template-columns: 1fr; gap: 14px; }
+            .project-info { transform: translateY(0) !important; opacity: 1 !important; }
+
+            /* Skills */
+            .skills-tags span { font-size: 12px; padding: 8px 13px; }
+            .tools-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+            .tool-item { padding: 14px 8px; }
+
+            /* Education/Languages: 1 column */
+            .side-by-side { grid-template-columns: 1fr; gap: 10px; }
+
+            /* Footer */
+            .footer { padding: 56px 0 100px; }
+            .footer-links { gap: 12px; }
+
+            /* Nav */
+            .floating-nav { bottom: 14px; padding: 5px; }
+            .floating-nav a { padding: 9px 12px; }
+        }
+
+        @media (max-width: 380px) {
+            .title { font-size: 32px; }
+            .profile-border { width: 170px; height: 170px; }
+            .profile-picture-container { height: 210px; width: 210px; }
+            .stats-strip { grid-template-columns: 1fr; }
+            .stat-item { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <div class="full-page-bg">
+        <img src="assets/hero.jpg" alt="Background">
+    </div>
+    <div class="background-overlay"></div>
+
+    <header class="header">
+        <div class="status"><span class="status-dot"></span> Open to work</div>
+        <a href="https://github.com/was-x/dark-thedarkagain-41609/raw/refs/heads/main/Profile%20(2).pdf" class="download-cv" id="downloadCVBtn">Download CV</a>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO -->
+        <section id="home" class="hero">
+            <!-- Profile pic: order-1 on mobile (shows on top) -->
+            <div class="profile-picture-container" id="profileContainer">
+                <div class="profile-glow"></div>
+                <div class="profile-border">
+                    <img src="assets/person.png" alt="Muzamil Majeed" class="profile-image">
+                </div>
+                <div class="floating-orbs">
+                    <div class="orb orb-1"></div>
+                    <div class="orb orb-2"></div>
+                    <div class="orb orb-3"></div>
+                </div>
+            </div>
+
+            <!-- Content: order-2 on mobile (shows below pic) -->
+            <div class="hero-content">
+                <p class="subtitle">AUTOMOTIVE SALES &amp; MARKETING PROFESSIONAL</p>
+                <h1 class="title">Muzamil<br>Majeed</h1>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg class="ico" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <a href="mailto:Muzamilmajeed23@gmail.com">Muzamilmajeed23@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="ico" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 14a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 3.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/></svg>
+                        <a href="tel:+917889737018">+91 7889737018</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="ico" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        <a href="https://www.linkedin.com/in/muzamilmajeed-9b00361b2" target="_blank">linkedin.com/in/muzamilmajeed</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="ico" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Srinagar, Jammu &amp; Kashmir, India</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <a href="https://muzamil.webhop.me" target="_blank">muzamil.webhop.me</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUMMARY -->
+        <section id="summary" class="section">
+            <h2 class="section-title">Summary</h2>
+            <div class="summary-text">
+                <p>Sales and Marketing professional in the automotive industry with experience in B2B sales, field marketing, and dealer network development. Currently working at <strong>RSB Transmission Pvt.</strong> where I focus on building relationships with retailers and mechanics, expanding market reach, and identifying new business opportunities across the region.</p>
+                <p>I have hands-on experience in market visits, lead generation, product promotion, and customer relationship management, helping to strengthen brand presence and drive sales growth. Alongside my professional experience, I am pursuing an <strong>MBA in Marketing and HR</strong> from Maharaja Ranjit Singh Punjab Technical University and hold a BBA from Cluster University Srinagar.</p>
+                <p>I am passionate about sales strategy, market expansion, and building long-term B2B partnerships in the automotive sector.</p>
+            </div>
+            <div class="stats-strip">
+                <div class="stat-item"><div class="stat-num" data-target="4">0</div><div class="stat-label">Years of Experience</div></div>
+                <div class="stat-item"><div class="stat-num" data-target="3">0</div><div class="stat-label">Companies Served</div></div>
+                <div class="stat-item"><div class="stat-num" data-target="3">0</div><div class="stat-label">Certifications</div></div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="section">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="experience-item sc">
+                <div class="exp-header"><h3>Sales And Marketing Representative</h3><span class="exp-date">Feb 2026 – Present</span></div>
+                <p class="exp-company">RSB Global / RSB Transmission LTD | Jammu &amp; Kashmir</p>
+                <p class="exp-desc">Developing B2B relationships with retailers and mechanics, market visits, product promotion, CRM management, and identifying new business opportunities.</p>
+                <ul class="exp-list"><li>Expand market reach through regular field engagement</li><li>Build strong retailer &amp; mechanic networks</li><li>Drive sales growth through strategic B2B partnerships</li></ul>
+            </div>
+            <div class="experience-item sc">
+                <div class="exp-header"><h3>Sales Representative</h3><span class="exp-date">Jan 2025 – Feb 2026</span></div>
+                <p class="exp-company">Brakes India | Jammu &amp; Kashmir, India</p>
+                <p class="exp-desc">Identified and pursued new leads to expand the customer base. Presented products effectively, showcasing benefits to potential clients.</p>
+                <ul class="exp-list"><li>Negotiated deals and managed customer relationships</li><li>Drove revenue growth through strategic sales management</li></ul>
+            </div>
+            <div class="experience-item sc">
+                <div class="exp-header"><h3>Sales Representative</h3><span class="exp-date">Mar 2022 – Jan 2025</span></div>
+                <p class="exp-company">Savita Oil Technologies Limited | Central Kashmir</p>
+                <p class="exp-desc">Excelled as a Sales Representative by identifying new leads and expanding the customer base across Central Kashmir.</p>
+                <ul class="exp-list"><li>Contributed to revenue growth and enhanced customer engagement</li><li>Strategic sales management in a competitive automotive market</li></ul>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="section">
+            <h2 class="section-title">Key Focus Areas</h2>
+            <div class="projects-grid">
+                <div class="project-card sc">
+                    <img src="https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&w=800" alt="B2B Network" loading="lazy">
+                    <div class="project-info"><span class="project-tag">B2B</span><h4>Dealer &amp; Mechanic Network</h4><p>Building strong B2B relationships across Kashmir</p></div>
+                </div>
+                <div class="project-card sc">
+                    <img src="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Field Sales" loading="lazy">
+                    <div class="project-info"><span class="project-tag">Field Sales</span><h4>Field Sales Excellence</h4><p>On-ground market visits &amp; lead generation</p></div>
+                </div>
+                <div class="project-card sc">
+                    <img src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Automotive Parts" loading="lazy">
+                    <div class="project-info"><span class="project-tag">Marketing</span><h4>Automotive Parts Promotion</h4><p>Product awareness campaigns for workshops</p></div>
+                </div>
+                <div class="project-card sc">
+                    <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Customer Success" loading="lazy">
+                    <div class="project-info"><span class="project-tag">CRM</span><h4>Customer Relationship Mgmt</h4><p>Long-term retention &amp; after-sales support</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="section">
+            <h2 class="section-title">Skills &amp; Tools</h2>
+            <div class="skills-tags">
+                <span>B2B Sales</span><span>Field Sales &amp; Market Visits</span><span>Retailer &amp; Mechanic Network</span>
+                <span>CRM (Salesforce / Zoho)</span><span>Lead Generation</span><span>Product Promotion</span>
+                <span>Negotiation &amp; Deal Closure</span><span>Marketing Management</span><span>HR Management</span>
+                <span>Data Analysis</span><span>Customer Retention</span><span>Dealer Network Development</span>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/salesforce.png" alt="Salesforce" onerror="this.src='https://img.icons8.com/color/96/crm.png'"><span>Salesforce CRM</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/zoho.png" alt="Zoho CRM" onerror="this.src='https://img.icons8.com/color/96/crm.png'"><span>Zoho CRM</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/microsoft-excel-2019.png" alt="MS Excel"><span>MS Excel</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/microsoft-powerpoint-2019.png" alt="PowerPoint"><span>PowerPoint</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/hubspot.png" alt="HubSpot"><span>HubSpot</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/positive-dynamic.png" alt="Lead Gen"><span>Lead Gen</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/bar-chart.png" alt="Market Analysis"><span>Market Analysis</span></div>
+                <div class="tool-item"><img src="https://img.icons8.com/color/96/handshake.png" alt="Negotiation"><span>Negotiation</span></div>
+            </div>
+            <div style="margin-top:44px;">
+                <h3 style="color:var(--accent-color);margin-bottom:18px;font-size:20px;font-weight:700;">Certifications</h3>
+                <div style="display:flex;flex-wrap:wrap;">
+                    <span class="cert-badge">Advanced Diploma in Computer Applications (ADCA)</span>
+                    <span class="cert-badge">Marketing Management</span>
+                    <span class="cert-badge">Automotive Service Technicians And Mechanics</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION & LANGUAGES -->
+        <section class="section side-by-side">
+            <div class="education">
+                <h2 class="section-title">Education</h2>
+                <div class="edu-item sc"><p class="edu-school">Maharaja Ranjit Singh Punjab Technical University</p><p class="edu-degree">MBA — Marketing &amp; HR Management<br>June 2023 – July 2025</p></div>
+                <div class="edu-item sc"><p class="edu-school">Cluster University of Srinagar</p><p class="edu-degree">Bachelor of Business Administration (BBA)<br>April 2019 – November 2022</p></div>
+            </div>
+            <div class="languages">
+                <h2 class="section-title">Languages</h2>
+                <div class="lang-item sc"><span>English</span><span class="lang-level">Professional</span></div>
+                <div class="lang-item sc"><span>Hindi</span><span class="lang-level">Fluent</span></div>
+                <div class="lang-item sc"><span>Urdu</span><span class="lang-level">Native</span></div>
+                <div class="lang-item sc"><span>Kashmiri</span><span class="lang-level">Native</span></div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="links" class="footer">
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/muzamilmajeed-9b00361b2" target="_blank" title="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="mailto:Muzamilmajeed23@gmail.com" title="Email">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://muzamil.webhop.me" target="_blank" title="Portfolio">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </a>
+                <a href="tel:+917889737018" title="Phone">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 14a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 3.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/></svg>
+                </a>
+                <a href="https://github.com/was-x/dark-thedarkagain-41609/raw/refs/heads/main/Profile%20(2).pdf" id="footerDownloadCv" title="Download CV">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </a>
+            </div>
+            <p class="copyright">© 2026 Muzamil Majeed — Automotive Sales &amp; Marketing Professional</p>
+        </footer>
+    </main>
+
+    <!-- FLOATING NAV — inline SVGs, no external dependency -->
+    <nav class="floating-nav">
+        <ul>
+            <li><a href="#home" class="active" title="Home">
+                <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </a></li>
+            <li><a href="#summary" title="Summary">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Summary</span>
+            </a></li>
+            <li><a href="#experience" title="Experience">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+                <span>Experience</span>
+            </a></li>
+            <li><a href="#skills" title="Skills">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Skills</span>
+            </a></li>
+            <li><a href="#links" title="Links">
+                <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <span>Links</span>
+            </a></li>
+        </ul>
+    </nav>
+
+    <script>
+        const scrollBar = document.getElementById('scrollProgress');
+        const root = document.documentElement;
+        const profileContainer = document.getElementById('profileContainer');
+        const sections = document.querySelectorAll('section, footer');
+        const navLinks = document.querySelectorAll('.floating-nav a');
+        const cursorGlow = document.getElementById('cursorGlow');
+        const isDesktop = window.innerWidth > 768;
+
+        // Cursor glow — desktop only
+        if (isDesktop) {
+            window.addEventListener('mousemove', e => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+        }
+
+        // Scroll handler
+        let ticking = false;
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const sp = window.pageYOffset;
+                    const docH = document.documentElement.scrollHeight - window.innerHeight;
+                    scrollBar.style.width = Math.min(100, (sp / docH) * 100) + '%';
+                    root.style.setProperty('--bg-blur', Math.min(8, sp / 100) + 'px');
+                    root.style.setProperty('--bg-brightness', Math.max(0.65, 1 - sp / 1200));
+                    root.style.setProperty('--bg-overlay-opacity', Math.min(0.4, sp / 1200));
+                    let cur = '';
+                    sections.forEach(s => { if (sp >= s.offsetTop - 220) cur = s.getAttribute('id') || ''; });
+                    navLinks.forEach(l => {
+                        l.classList.remove('active');
+                        if (cur && l.getAttribute('href').includes(cur)) l.classList.add('active');
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // 3D tilt — desktop only
+        if (isDesktop) {
+            window.addEventListener('mousemove', e => {
+                if (!profileContainer) return;
+                const x = (window.innerWidth / 2 - e.clientX) / 22;
+                const y = (window.innerHeight / 2 - e.clientY) / 22;
+                profileContainer.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+            document.addEventListener('mouseleave', () => {
+                if (profileContainer) profileContainer.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    if (entry.target.id === 'summary') startCounters();
+                }
+            });
+        }, { threshold: 0.06 });
+        document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+        // Counters
+        let counted = false;
+        function startCounters() {
+            if (counted) return;
+            counted = true;
+            document.querySelectorAll('.stat-num').forEach(el => {
+                const target = +el.dataset.target;
+                let current = 0;
+                const interval = setInterval(() => {
+                    current = Math.min(current + target / 40, target);
+                    el.textContent = Math.floor(current) + '+';
+                    if (current >= target) { el.textContent = target + '+'; clearInterval(interval); }
+                }, 35);
+            });
+        }
+
+        // CV Download
+        function generateAndDownloadCV() {
+            const cv = `Muzamil Majeed - Automotive Sales & Marketing Professional
+=============================================================
+Contact: Muzamilmajeed23@gmail.com | +91 7889737018
+Location: Srinagar, Jammu & Kashmir, India
+LinkedIn: linkedin.com/in/muzamilmajeed-9b00361b2
+Portfolio: muzamil.webhop.me
+
+PROFESSIONAL SUMMARY
+Sales and Marketing professional with 4+ years in B2B sales, field marketing, and dealer network development.
+
+WORK EXPERIENCE
+RSB Transmission LTD | Sales And Marketing Representative (Feb 2026 - Present)
+Brakes India | Sales Representative (Jan 2025 - Feb 2026)
+Savita Oil Technologies Limited | Sales Representative (Mar 2022 - Jan 2025)
+
+EDUCATION
+MBA (Marketing & HR) - Maharaja Ranjit Singh Punjab Technical University (2023-2025)
+BBA - Cluster University of Srinagar (2019-2022)
+
+CERTIFICATIONS: ADCA | Marketing Management | Automotive Service Technicians
+SKILLS: B2B Sales | Field Sales | CRM | Lead Generation | Negotiation | MS Excel | HubSpot
+LANGUAGES: English | Hindi | Urdu | Kashmiri`;
+            const blob = new Blob([cv], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'Muzamil_Majeed_CV.txt';
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(url);
+        }
+        document.querySelectorAll('#downloadCVBtn, #footerDownloadCv').forEach(btn =>
+    btn.addEventListener('click', e => {
+        // REMOVE THIS LINE
+        // e.preventDefault();
+
+        // REMOVE THIS ALSO if you want GitHub download
+        // generateAndDownloadCV();
+    })
+);
+    </script>
+</body>
+</html>
